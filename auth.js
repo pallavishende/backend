@@ -1,8 +1,20 @@
 var User = require('./models/User.js')
+var Product = require('./models/Products.js')
 var bcrypt = require('bcrypt-nodejs')
 var jwt = require('jwt-simple')
 var express = require('express')
 var router = express.Router()
+
+router.post('/api/products', (req, res) => {
+    var userData = req.body
+
+    var product = new Product(userData)
+
+    product.save((err, newUser) => {
+        if (err)
+            return res.status(500).send({ message: 'Error saving product' })
+    })
+})
 
 router.post('/register', (req, res) => {
     var userData = req.body
